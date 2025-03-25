@@ -1,0 +1,5 @@
+environment = "staging"
+aws_account_id = "staging-random-company-io"
+terraform_service_account_name = "terraform-migration-service-account-staging"
+cloud_engineers_group_name = "cloud-engineers-staging"
+cloud_engineer_email = "cloudengineer@random-company.io" 

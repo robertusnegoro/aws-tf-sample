@@ -1,0 +1,5 @@
+environment = "prod"
+project_id = "prod-random-company-io"
+customer_id = "C0123456789"
+terraform_service_account_name = "terraform-migration-service-account-prod"
+cloud_engineer_email = "cloudengineer@random-company.io" 

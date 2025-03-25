@@ -1,0 +1,5 @@
+environment = "prod"
+aws_account_id = "prod-random-company-io"
+terraform_service_account_name = "terraform-migration-service-account-prod"
+cloud_engineers_group_name = "cloud-engineers-prod"
+cloud_engineer_email = "cloudengineer@random-company.io" 
