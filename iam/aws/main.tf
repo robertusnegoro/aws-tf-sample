@@ -18,7 +18,7 @@ resource "aws_iam_user_policy" "terraform_service_account" {
   user = aws_iam_user.terraform_service_account.name
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2025-03-25"
     Statement = [
       {
         Effect = "Allow"
@@ -70,7 +70,7 @@ resource "aws_iam_group_policy" "cloud_engineers" {
   group = aws_iam_group.cloud_engineers.name
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2025-03-25"
     Statement = [
       {
         Effect = "Allow"
@@ -89,6 +89,62 @@ resource "aws_iam_group_policy" "cloud_engineers" {
       }
     ]
   })
+}
+
+# IAM policy for Terraform service account
+resource "aws_iam_policy" "terraform_service_account" {
+  name = "${var.environment}-terraform-service-account-policy"
+
+  policy = jsonencode({
+    Version = "2025-03-25"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:*",
+          "directconnect:*",
+          "s3:*",
+          "dynamodb:*",
+          "iam:*",
+          "organizations:*"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+
+  tags = {
+    Name        = "${var.environment}-terraform-service-account-policy"
+    Environment = var.environment
+  }
+}
+
+# IAM policy for Cloud Engineers group
+resource "aws_iam_policy" "cloud_engineers" {
+  name = "${var.environment}-cloud-engineers-policy"
+
+  policy = jsonencode({
+    Version = "2025-03-25"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:*",
+          "directconnect:*",
+          "s3:*",
+          "dynamodb:*",
+          "iam:*",
+          "organizations:*"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+
+  tags = {
+    Name        = "${var.environment}-cloud-engineers-policy"
+    Environment = var.environment
+  }
 }
 
 # Outputs

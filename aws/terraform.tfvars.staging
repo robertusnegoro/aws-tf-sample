@@ -7,3 +7,8 @@ aws_direct_connect_location = "Jakarta"
 aws_direct_connect_connection_name = "dx-jakarta-onprem-staging"
 aws_transit_gateway_name = "tgw-jakarta-migration-staging"
 gcp_cloud_interconnect_attachment_id = "projects/staging-random-gcp-project/regions/asia-southeast1/interconnectAttachments/interconnect-jakarta-migration"
+
+# Atlantis configuration
+gitlab_token = "your-staging-gitlab-token"
+gitlab_webhook_secret = "your-staging-webhook-secret"
+gitlab_base_url = "https://gitlab.com"

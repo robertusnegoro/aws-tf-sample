@@ -55,4 +55,23 @@ variable "aws_transit_gateway_name" {
 variable "gcp_cloud_interconnect_attachment_id" {
   description = "GCP Cloud Interconnect attachment ID"
   type        = string
+}
+
+# Atlantis variables
+variable "gitlab_token" {
+  description = "GitLab personal access token"
+  type        = string
+  sensitive   = true
+}
+
+variable "gitlab_webhook_secret" {
+  description = "GitLab webhook secret"
+  type        = string
+  sensitive   = true
+}
+
+variable "gitlab_base_url" {
+  description = "GitLab base URL"
+  type        = string
+  default     = "https://gitlab.com"
 } 
