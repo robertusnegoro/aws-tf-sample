@@ -1,0 +1,9 @@
+environment = "prod"
+aws_account_id = "prod-random-company-io"
+aws_region = "ap-southeast-3"
+aws_vpc_cidr = "10.0.0.0/16"
+aws_availability_zones = ["ap-southeast-3a", "ap-southeast-3b"]
+aws_direct_connect_location = "Jakarta"
+aws_direct_connect_connection_name = "dx-jakarta-onprem-prod"
+aws_transit_gateway_name = "tgw-jakarta-migration-prod"
+gcp_cloud_interconnect_attachment_id = "projects/prod-random-gcp-project/regions/asia-southeast1/interconnectAttachments/interconnect-jakarta-migration"
