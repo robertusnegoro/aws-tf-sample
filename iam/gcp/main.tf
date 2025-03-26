@@ -4,10 +4,6 @@ resource "google_service_account" "terraform_service_account" {
   display_name = "Terraform Migration Service Account"
   description  = "Service account for running Terraform migrations"
   project      = var.project_id
-  labels = {
-    environment = "production"
-    purpose     = "terraform-migration"
-  }
 }
 
 # GCP Service Account Key
