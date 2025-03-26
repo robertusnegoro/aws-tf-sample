@@ -1,0 +1,74 @@
+image: hashicorp/terraform:1.11.2
+
+variables:
+  TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state
+
+stages:
+  - validate
+  - lint
+
+cache:
+  paths:
+    - .terraform/
+
+before_script:
+  - cd ${TF_ROOT}
+  - terraform init
+
+.terraform_validate: &terraform_validate
+  script:
+    - terraform validate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+.terraform_lint: &terraform_lint
+  script:
+    - tflint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# AWS Infrastructure
+aws_validate:
+  <<: *terraform_validate
+  variables:
+    TF_ROOT: aws
+
+aws_lint:
+  <<: *terraform_lint
+  variables:
+    TF_ROOT: aws
+
+# GCP Infrastructure
+gcp_validate:
+  <<: *terraform_validate
+  variables:
+    TF_ROOT: gcp
+
+gcp_lint:
+  <<: *terraform_lint
+  variables:
+    TF_ROOT: gcp
+
+# AWS IAM
+aws_iam_validate:
+  <<: *terraform_validate
+  variables:
+    TF_ROOT: iam/aws
+
+aws_iam_lint:
+  <<: *terraform_lint
+  variables:
+    TF_ROOT: iam/aws
+
+# GCP IAM
+gcp_iam_validate:
+  <<: *terraform_validate
+  variables:
+    TF_ROOT: iam/gcp
+
+gcp_iam_lint:
+  <<: *terraform_lint
+  variables:
+    TF_ROOT: iam/gcp 
