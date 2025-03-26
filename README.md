@@ -164,11 +164,9 @@ After deploying both infrastructures, you'll need to update the following variab
 ## Important Notes
 
 1. The configuration uses ASN 64512 for both AWS and GCP. Make sure this doesn't conflict with your existing ASN numbers.
-2. The GCP Cloud Interconnect bandwidth is set to 10 Gbps by default. Adjust as needed.
-3. The AWS Direct Connect bandwidth is set to 1 Gbps by default. Adjust as needed.
-4. Make sure the CIDR ranges don't overlap between AWS and GCP networks.
-5. The configuration creates subnets in two availability zones by default.
-6. All resources are deployed in the Jakarta region:
+2. Make sure the CIDR ranges don't overlap between AWS and GCP networks.
+3. The configuration creates subnets in two availability zones by default.
+4. All resources are deployed in the Jakarta region:
    - AWS: ap-southeast-3
    - GCP: asia-southeast1
 
@@ -187,10 +185,3 @@ terraform destroy
 cd gcp
 terraform destroy
 ```
-
-## Security Considerations
-
-1. Ensure proper IAM roles and permissions are set up for both AWS and GCP.
-2. Review and adjust the security groups and firewall rules as needed.
-3. Consider enabling encryption for the Direct Connect connection.
-4. Review the BGP configuration and routing policies. 
