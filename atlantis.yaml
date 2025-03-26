@@ -1,0 +1,115 @@
+version: 3
+projects:
+  # AWS Infrastructure - Staging
+  - name: aws-infrastructure-staging
+    dir: aws
+    workspace: staging
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.staging"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # AWS Infrastructure - Production
+  - name: aws-infrastructure-prod
+    dir: aws
+    workspace: prod
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.prod"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # GCP Infrastructure - Staging
+  - name: gcp-infrastructure-staging
+    dir: gcp
+    workspace: staging
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.staging"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # GCP Infrastructure - Production
+  - name: gcp-infrastructure-prod
+    dir: gcp
+    workspace: prod
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.prod"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # AWS IAM - Staging
+  - name: aws-iam-staging
+    dir: iam/aws
+    workspace: staging
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.staging"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # AWS IAM - Production
+  - name: aws-iam-prod
+    dir: iam/aws
+    workspace: prod
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.prod"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # GCP IAM - Staging
+  - name: gcp-iam-staging
+    dir: iam/gcp
+    workspace: staging
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.staging"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+  # GCP IAM - Production
+  - name: gcp-iam-prod
+    dir: iam/gcp
+    workspace: prod
+    terraform_version: v1.11.2
+    autoplan:
+      enabled: true
+      when_modified: ["*.tf", "*.tfvars.prod"]
+      apply_requirements: ["approved", "mergeable"]
+    workflow: terraform
+
+workflows:
+  terraform:
+    plan:
+      steps:
+        - init:
+            extra_args: ["-backend=true"]
+        - plan:
+            extra_args: ["-var-file=terraform.tfvars.${workspace}"]
+    apply:
+      steps:
+        - apply:
+            extra_args: ["-var-file=terraform.tfvars.${workspace}"]
+
+# Global settings
+repos:
+  - id: /.*/
+    apply_requirements: ["approved", "mergeable"]
+    allowed_overrides: ["apply_requirements", "workflow"]
+    checkout_strategy: merge
+    check_strategy: merge
+    # GitLab specific settings
+    gitlab:
+      token: ${GITLAB_TOKEN}
+      webhook_secret: ${GITLAB_WEBHOOK_SECRET}
+      base_url: ${GITLAB_BASE_URL} 
